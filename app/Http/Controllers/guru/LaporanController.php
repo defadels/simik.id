@@ -12,6 +12,8 @@ use App\Models\User;
 use App\Models\Murid;
 use App\Models\NilaiMurid;
 use App\Models\MataPelajaran;
+use App\Models\DetilLaporan;
+
 use DB;
 
 class LaporanController extends Controller
@@ -154,12 +156,19 @@ class LaporanController extends Controller
  
       }
       
-     
  
+      $detil_laporan = DetilLaporan::updateOrCreate(
+                            ['laporan_id' =>  $laporan->id,
+                            'murid_id' => $murid->id,
+                            'matapelajaran_id' => $mata_pelajaran->id,
+                            'jenis' => 'mapel'],
+                            ['deskripsi'=>$req->deskripsinya]
+                        );
+      
       $judul_grafik = "Grafik Perkembangan ".$mata_pelajaran->nama;
  
       return view('content.guru.laporan.penilaian.rating', 
-      compact('mata_pelajaran','title','laporan','daftar_murid','murid','data','judul_grafik','daftar_materi'));
+      compact('mata_pelajaran','title','laporan','daftar_murid','murid','data','judul_grafik','daftar_materi','detil_laporan'));
  
     }
  
