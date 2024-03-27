@@ -7,6 +7,8 @@ $configData = Helper::appClasses();
 @section('title', $title)
 
 @section('page-styles')
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet" />
+
 @endsection
 @section('page-script')
 <script > 
@@ -87,9 +89,26 @@ $configData = Helper::appClasses();
   );
   chart.render(); 
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.js"></script>
+<script>
+  var quill = new Quill('#editor', {
+    theme: 'snow',
+    modules: {
+      toolbar: [  
+        ["bold", "italic","underline"],    
+      ]
+    },
+  });
+  quill.on('text-change', function(delta, oldDelta, source) {
+    document.querySelector("input[name='deskripsinya']").value = quill.root.innerHTML;
+  });
+</script>
 @endsection
 
 @section('vendor-script')
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet" />
+
 @endsection
 
 @section('content')
@@ -176,12 +195,18 @@ $configData = Helper::appClasses();
    <br> 
   
  
-  <form method="get" class="row g-3" action="{{route('gurunda.laporan.penilaian.rating',[$laporan->id, $mata_pelajaran->id])}}">
-  <div class="mb-3"> 
-  <label for="exampleFormControlTextarea1" class="form-label">Deskripsi Komentar dan saran</label>
-  <textarea name="deskripsinya" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  <br>
-    <button type="submit" class="btn btn-primary mb-3"> Simpan Deskripsi</button>
+  <form method="post" class="row g-3" action="{{route('gurunda.laporan.penilaian.rating',[$laporan->id, $mata_pelajaran->id])}}">
+  @csrf
+  <div class="mb-3">  
+  <button type="submit" class="btn btn-primary mb-3"> Simpan Deskripsi</button> 
+  <input type="hidden" name="id_murid" value="{{$murid->id}}"/> 
+  <div>
+  
+  <input type="hidden" name="deskripsinya" value="{{$detil_laporan->deskripsi}}">
+  <div id="editor" style="min-height: 160px;">{!!$detil_laporan->deskripsi!!}</div>
+</div> 
+
+  
  
 </div>
 </form>
