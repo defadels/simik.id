@@ -20,6 +20,11 @@ use App\Http\Controllers\front_pages\HomeController;
 use App\Http\Controllers\front_pages\PendaftaranController;
 use App\Http\Controllers\front_pages\FrontBlogController;
 
+
+use App\Http\Controllers\guru\DashboardController;
+use App\Http\Controllers\guru\GrafikController;
+use App\Http\Controllers\guru\LaporanController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -112,6 +117,27 @@ name('webmin.')->namespace('Dashboard')->group(function () {
     Route::get('/daftar-tahap-kedua/{calon_murid}', [CalonMuridController::class, 'daftarTahapKedua'])->name('calon-murid.tahap-kedua');
     Route::get('/lampiran-berkas/{calon_murid}', [CalonMuridController::class, 'lampiranBerkas'])->name('calon-murid.lampiran-berkas');
     Route::put('/daftar-tahap-kedua/{calon_murid}', [CalonMuridController::class, 'update'])->name('calon-murid.tahap-kedua.update');
+  });
+
+  Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->prefix('gurunda')->
+name('gurunda.')->namespace('guru')->group(function () {
+    // Main Page Route
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');  
+    Route::get('grafik', [GrafikController::class, 'index'])->name('grafik');   
+    Route::get('laporan', [LaporanController::class, 'index'])->name('laporan');    
+    Route::get('laporan/{id}/lihat', [LaporanController::class, 'lihat'])->name('laporan.lihat');    
+    Route::get('laporan/{id}/penilaian', [LaporanController::class, 'penilaian'])->name('laporan.penilaian');    
+    Route::get('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'rating'])->name('laporan.penilaian.rating');    
+    Route::post('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'update_deskripsi'])->name('laporan.penilaian.rating');    
+    Route::get('laporan/{id}/lihat/{id_murid}/cetak', [LaporanController::class, 'cetak'])->name('laporan.lihat.cetak');    
+ 
+  });
+
+  Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->prefix('dashboard')->
+  name('dashboard.')->namespace('Dashboard')->group(function () { 
+      // authentication
+      Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
+      Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-register-basic');
   });
 
 // Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {

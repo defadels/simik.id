@@ -87,10 +87,22 @@
 
     "menuGuru": [
       {
-        "url": "/guru/dashboard",
-        "icon": "menu-icon tf-icons ti ti-article",
+        "url": "/gurunda/",
+        "icon": "menu-icon tf-icons ti ti-smart-home",
         "name": "Dashboard",
-        "slug": "guru-dashboard"
+        "slug": "gurunda.dashboard"
+      },
+      {
+        "url": "/gurunda/grafik",
+        "icon": "menu-icon tf-icons ti ti-article",
+        "name": "Grafik",
+        "slug": "gurunda.grafik"
+      },
+      {
+        "url": "/gurunda/laporan",
+        "icon": "menu-icon tf-icons ti ti-files",
+        "name": "Laporan",
+        "slug": "gurunda.laporan"
       }
   ]
 }
