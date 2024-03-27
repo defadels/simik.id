@@ -1,43 +1,43 @@
 {
   "menu": [
     {
-      "url": "/dashboard",
+      "url": "/webmin",
       "name": "Dashboard",
       "icon": "menu-icon tf-icons ti ti-smart-home",
       "slug": "pages-home"
     },
     {
-      "url": "/dashboard/blog",
+      "url": "/webmin/blog",
       "icon": "menu-icon tf-icons ti ti-article",
       "name": "Blog",
       "slug": "blog"
     },
     {
-      "url": "/dashboard/users",
+      "url": "/webmin/users",
       "icon": "menu-icon tf-icons ti ti-users",
       "name": "Users Management",
       "slug": "users-management"
     },
     {
-      "url": "/dashboard/calon-murid",
+      "url": "/webmin/calon-murid",
       "icon": "menu-icon tf-icons ti ti-user",
       "name": "Calon Murid",
       "slug": "calon-murid"
     },
     {
-      "url": "/dashboard/page-2",
+      "url": "/webmin/guru",
       "icon": "menu-icon tf-icons ti ti-user",
       "name": "Data Guru",
       "slug": "data-guru"
     },
     {
-      "url": "/dashboard/page-2",
+      "url": "/webmin/orangtua",
       "icon": "menu-icon tf-icons ti ti-users",
       "name": "Data Orang Tua Murid",
       "slug": "data-orang-tua-murid"
     },
     {
-      "url": "/dashboard/page-2",
+      "url": "/webmin/murid",
       "icon": "menu-icon tf-icons ti ti-user",
       "name": "Data Murid",
       "slug": "data-murid"
@@ -48,22 +48,22 @@
       "slug": "front-pages",
       "submenu": [
         {
-          "url": "/dashboard/slider",
+          "url": "/webmin/slider",
           "name": "Slider",
           "slug": "front-pages-landing"
         },
         {
-          "url": "/dashboard/faq",
+          "url": "/webmin/faq",
           "name": "FAQ",
           "slug": "front-pages-landing"
         },
         {
-          "url": "/dashboard/testimoni",
+          "url": "/webmin/testimoni",
           "name": "Testimoni",
           "slug": "front-pages-checkout"
         },
         {
-          "url": "front-pages/help-center",
+          "url": "webmin/help-center",
           "name": "Help Center",
           "slug": "front-pages-help-center",
           "target": "_blank"
@@ -71,7 +71,7 @@
       ]
     },
     {
-      "url": "/dashboard/profil-website",
+      "url": "/webmin/profil-website",
       "name": "Profil Website",
       "icon": "menu-icon tf-icons ti ti-settings-filled",
       "slug": "profil-website"
@@ -79,10 +79,30 @@
   ],
   "menuGuest": [
     {
-      "url": "/dashboard/calon-murid",
+      "url": "/webmin/calon-murid",
       "icon": "menu-icon tf-icons ti ti-article",
       "name": "Data Pendaftaran Anak",
       "slug": "data-pendaftaran-anak"
-    }
+    }],
+
+    "menuGuru": [
+      {
+        "url": "/gurunda/",
+        "icon": "menu-icon tf-icons ti ti-smart-home",
+        "name": "Dashboard",
+        "slug": "gurunda.dashboard"
+      },
+      {
+        "url": "/gurunda/grafik",
+        "icon": "menu-icon tf-icons ti ti-article",
+        "name": "Grafik",
+        "slug": "gurunda.grafik"
+      },
+      {
+        "url": "/gurunda/laporan",
+        "icon": "menu-icon tf-icons ti ti-files",
+        "name": "Laporan",
+        "slug": "gurunda.laporan"
+      }
   ]
 }

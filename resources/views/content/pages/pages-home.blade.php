@@ -17,7 +17,7 @@ $configData = Helper::appClasses();
      <div class="card bg-transparent shadow-none my-4 border-0">
       <div class="card-body row p-0 pb-3">
         <div class="col-12 col-md-8 card-separator">
-          <h3>Welcome back, Felecia 👋🏻 </h3>
+          <h3>Welcome back, Felecia 👋🏻 {{Route::currentRouteName()}} </h3>
           <div class="col-12 col-lg-7">
             <p>Your progress this week is Awesome. let's keep it up and get a lot of points reward !</p>
           </div>
