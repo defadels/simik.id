@@ -198,7 +198,7 @@ $configData = Helper::appClasses();
   <form method="post" class="row g-3" action="{{route('gurunda.laporan.penilaian.rating',[$laporan->id, $mata_pelajaran->id])}}">
   @csrf
   <div class="mb-3">  
-  <button type="submit" class="btn btn-primary mb-3"> Simpan Deskripsi</button> 
+  <button type="submit" class="btn btn-danger mb-3"> Simpan Deskripsi</button> 
   <input type="hidden" name="id_murid" value="{{$murid->id}}"/> 
   <div>
   

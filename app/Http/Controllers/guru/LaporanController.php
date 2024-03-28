@@ -156,7 +156,7 @@ class LaporanController extends Controller
  
       }
       
- 
+      if ($req->deskripsinya){
       $detil_laporan = DetilLaporan::updateOrCreate(
                             ['laporan_id' =>  $laporan->id,
                             'murid_id' => $murid->id,
@@ -164,6 +164,16 @@ class LaporanController extends Controller
                             'jenis' => 'mapel'],
                             ['deskripsi'=>$req->deskripsinya]
                         );
+      } else {
+        $detil_laporan = DetilLaporan::firstOrCreate(
+          ['laporan_id' =>  $laporan->id,
+          'murid_id' => $murid->id,
+          'matapelajaran_id' => $mata_pelajaran->id,
+          ],
+          ['jenis' => 'mapel']
+      );
+
+      }
       
       $judul_grafik = "Grafik Perkembangan ".$mata_pelajaran->nama;
  
