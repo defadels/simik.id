@@ -37,6 +37,17 @@ class UserSeeder extends Seeder
           'email_verified_at' => now(),
           'password' => Hash::make('editor123')
         ],
+        [
+          'nama' => 'Guru',
+          'roles' => 'guru',
+          'username' => 'tyara',
+          'email' => 'tyara@gmail.com',
+          'email_verified_at' => now(),
+          'created_at' => now(),
+          'updated_at' => now(),
+          'email_verified_at' => now(),
+          'password' => Hash::make('guru123')
+        ]
     ]);
     }
 }
