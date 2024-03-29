@@ -23,12 +23,26 @@ $configData = Helper::appClasses();
       <table class="table">
         <thead>
           <tr>
-            <th>Mata Pelajaran</th>
+            <th>Peniliaian</th>
             <th>Keterangan</th> 
             <th></th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
+        <tr>
+          <td>Pembukaan / Kesimpulan Keseluruhan Penilaian <span class="badge bg-warning">New</span> <span class="badge bg-secondary text-dark">Mohon Cepat diisi</span></td>
+          <td class="desc"></td> 
+            <td>
+              <a href="{{route('gurunda.laporan.penilaian.opening', $laporan->id)}}" class="btn btn-sm btn-success">Nilai</a>  
+            </td>
+          </tr>
+          <tr>
+          <td>Pembiasaan Adab <span class="badge bg-warning">New</span> <span class="badge bg-secondary text-dark">Harap Cepat diisi</span></td>
+          <td class="desc"></td> 
+            <td>
+              <a href="{{route('gurunda.laporan.penilaian.adab', $laporan->id)}}" class="btn btn-sm btn-success">Nilai</a>  
+            </td>
+          </tr>
           @foreach($daftar_mata_pelajaran as $mata_pelajaran)
           <tr>
           <td>{{$mata_pelajaran->nama}}</td>
@@ -41,7 +55,7 @@ $configData = Helper::appClasses();
         </tbody>
       </table>
       @else
-        <h4 class="text-center">Mata Pelajaran Kosong</h4>
+        <h4 class="text-center">Penilaian Kosong</h4>
       @endif
     </div>
   </div>

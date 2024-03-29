@@ -67,6 +67,73 @@ class LaporanController extends Controller
  
     }
 
+    public function adab (Request $req, $id_laporan){
+      $title="Daftar Penilaian Pembiasaan Adab";
+      $murid = Murid::find($req->id_murid);
+      if (!$murid) {
+        $murid = Murid::first();
+      }
+      $laporan = Laporan::findOrFail($id_laporan); 
+      $daftar_murid = Murid::orderBy("nama","asc")->pluck('nama','id');
+
+      if ($req->deskripsinya){
+        $detil_laporan = DetilLaporan::updateOrCreate(
+                              ['laporan_id' =>  $laporan->id,
+                              'murid_id' => $murid->id,
+                              'matapelajaran_id' => null,
+                              'jenis' => 'adab'],
+                              ['deskripsi'=>$req->deskripsinya]
+                          );
+        } else {
+          $detil_laporan = DetilLaporan::firstOrCreate(
+            ['laporan_id' =>  $laporan->id,
+            'murid_id' => $murid->id,
+            'jenis' => 'adab',
+            'matapelajaran_id' => null,
+            ],
+            []
+        );
+  
+        }
+
+        return view('content.guru.laporan.penilaian.adab', 
+      compact( 'title','laporan','daftar_murid','murid','detil_laporan'));
+
+    }
+
+    public function opening (Request $req, $id_laporan){
+      $title="Daftar Penilaian";
+      $murid = Murid::find($req->id_murid);
+      if (!$murid) {
+        $murid = Murid::first();
+      }
+      $laporan = Laporan::findOrFail($id_laporan); 
+      $daftar_murid = Murid::orderBy("nama","asc")->pluck('nama','id');
+
+      if ($req->deskripsinya){
+        $detil_laporan = DetilLaporan::updateOrCreate(
+                              ['laporan_id' =>  $laporan->id,
+                              'murid_id' => $murid->id,
+                              'matapelajaran_id' => null,
+                              'jenis' => 'opening'],
+                              ['deskripsi'=>$req->deskripsinya]
+                          );
+        } else {
+          $detil_laporan = DetilLaporan::firstOrCreate(
+            ['laporan_id' =>  $laporan->id,
+            'murid_id' => $murid->id,
+            'matapelajaran_id' => null,
+            ],
+            ['jenis' => 'opening']
+        );
+  
+        }
+
+        return view('content.guru.laporan.penilaian.opening', 
+      compact( 'title','laporan','daftar_murid','murid','detil_laporan'));
+
+    }
+
     public function rating(Request $req, $id_laporan,$id_mapel)
     {
       $title="Daftar Penilaian";

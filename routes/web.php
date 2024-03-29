@@ -130,6 +130,10 @@ name('gurunda.')->namespace('guru')->group(function () {
     Route::get('laporan/{id}/penilaian', [LaporanController::class, 'penilaian'])->name('laporan.penilaian');    
     Route::get('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'rating'])->name('laporan.penilaian.rating');    
     Route::post('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'rating'])->name('laporan.penilaian.rating');   
+    Route::get('laporan/{id}/penilaian/adab', [LaporanController::class, 'adab'])->name('laporan.penilaian.adab');    
+    Route::post('laporan/{id}/penilaian/adab', [LaporanController::class, 'adab'])->name('laporan.penilaian.adab');   
+    Route::get('laporan/{id}/penilaian/opening', [LaporanController::class, 'opening'])->name('laporan.penilaian.opening');    
+    Route::post('laporan/{id}/penilaian/opening', [LaporanController::class, 'opening'])->name('laporan.penilaian.opening');   
  
   });
 
