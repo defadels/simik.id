@@ -15,6 +15,9 @@ use App\Models\MataPelajaran;
 use App\Models\DetilLaporan;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+use App\Models\PenilaianAdab;
+use App\Models\RatingAdab;
+
 
 use DB;
 
@@ -75,7 +78,26 @@ class LaporanController extends Controller
       }
       $laporan = Laporan::findOrFail($id_laporan); 
       $daftar_murid = Murid::orderBy("nama","asc")->pluck('nama','id');
+     
+        $daftar_penilaian_adab = PenilaianAdab::
+                  where('laporan_id',$laporan->id)->get();
+ 
+        if ($req->rating){
+        $daftar_rating = collect(); 
+        foreach($req->rating as $key=>$value){
+          $daftar_rating->push([
+            'murid_id'=>$murid->id, 
+            'penilaian_adab_id' => $daftar_penilaian_adab[$key]->id,
+            'rating'=> $value
+          ]); 
+        }
+        RatingAdab::upsert($daftar_rating->toArray(), ['murid_id', 'penilaian_adab_id'], ['rating']);
+      } 
 
+
+       $daftar_rating = RatingAdab::whereIn('penilaian_adab_id',$daftar_penilaian_adab->pluck('id'))->where('murid_id',$murid->id)
+                                  ->get();
+         
       if ($req->deskripsinya){
         $detil_laporan = DetilLaporan::updateOrCreate(
                               ['laporan_id' =>  $laporan->id,
@@ -97,7 +119,7 @@ class LaporanController extends Controller
         }
 
         return view('content.guru.laporan.penilaian.adab', 
-      compact( 'title','laporan','daftar_murid','murid','detil_laporan'));
+      compact( 'title','laporan','daftar_murid','murid','detil_laporan','daftar_penilaian_adab','daftar_rating'));
 
     }
 

@@ -7,12 +7,32 @@ $configData = Helper::appClasses();
 @section('title', $title)
 
 @section('page-styles')
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet" />
 
 @endsection
 @section('page-script')
  
+<script>
 
+$(function () {
+ 
+  $('.rate_adab').each(function () {
+    var rating = $(this).data('rating');
+    $(this).rateYo({ 
+   numStars: 6,
+   maxValue:6,
+   rating: rating,
+   fullStar: true,
+   onSet: function (rating, rateYoInstance) {
+    var idnilai = $(this).attr("penilaian_id");
+    $("#nilai_rating_"+idnilai).val(rating);
+    } 
+
+ });
+  });
+ 
+
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.js"></script>
 <script>
   var quill = new Quill('#editor', {
@@ -31,8 +51,10 @@ $configData = Helper::appClasses();
 @endsection
 
 @section('vendor-script')
+ 
+<link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/rateyo/rateyo.css')) }}" />
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.4/dist/quill.snow.css" rel="stylesheet" />
-
+<script src="{{ asset(mix('assets/vendor/libs/rateyo/rateyo.js'))}}"></script> 
 @endsection
 
 @section('content')
@@ -59,7 +81,7 @@ $configData = Helper::appClasses();
     <button type="submit" class="btn btn-primary mb-3"> Pilih Murid</button>
   </div>
 </form>   
-   
+   <br>
 <div class="card">
  
  <div class="table-responsive text-nowrap"> 
@@ -112,17 +134,53 @@ $configData = Helper::appClasses();
  </div>
 </div>
 <!--/ Basic Bootstrap Table -->
+  <br>
+   
+<div class="card">
+ 
+ <div class="table-responsive text-nowrap"> 
+
+ <table class="table">
+        <thead>
+          <tr>
+            <th>Adab</th>
+            <th>Rating</th>  
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+        <tr>
+       @foreach($daftar_penilaian_adab as $penilaian)
+       <tr>
+           <td>
+           {{$penilaian->penilaian}}
+           </td>
+           <td class="desc">
+              <div id="rate_{{$penilaian->id}}" class="rate_adab" data-rating="{{$daftar_rating->where('penilaian_adab_id',$penilaian->id)->value('rating')?$daftar_rating->where('penilaian_adab_id',$penilaian->id)->value('rating'):0}}" penilaian_id="{{$penilaian->id}}"></div>
+          </td> 
+       </tr> 
+       @endforeach
+     </tbody>
+   </table> 
+ </div>
+</div>
+<!--/ Basic Bootstrap Table -->
   
+<br>
  
   <form method="post" class="row g-3" action="{{route('gurunda.laporan.penilaian.adab',$laporan->id)}}">
   @csrf
   <div class="mb-3">  
-  <button type="submit" class="btn btn-danger mb-3"> Simpan Deskripsi Pembiasaan Adab</button> 
   <input type="hidden" name="id_murid" value="{{$murid->id}}"/> 
   <div>
-  
+  @foreach($daftar_penilaian_adab as $penilaian) 
+  <input type="hidden" id="nilai_rating_{{$penilaian->id}}" name="rating[]" value="{{$daftar_rating->where('penilaian_adab_id',$penilaian->id)->value('rating')?$daftar_rating->where('penilaian_adab_id',$penilaian->id)->value('rating'):0}}">
+  @endforeach
   <input type="hidden" name="deskripsinya" value="{{$detil_laporan->deskripsi}}">
+
   <div id="editor" style="min-height: 160px;">{!!$detil_laporan->deskripsi!!}</div>
+  <br>
+  <button type="submit" class="btn btn-danger mb-3"> Simpan</button> 
+  
 </div> 
 
   
