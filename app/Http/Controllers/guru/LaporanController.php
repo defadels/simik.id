@@ -13,6 +13,8 @@ use App\Models\Murid;
 use App\Models\NilaiMurid;
 use App\Models\MataPelajaran;
 use App\Models\DetilLaporan;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 use DB;
 
@@ -35,6 +37,24 @@ class LaporanController extends Controller
       $daftar_murid = Murid::orderBy("kelas","asc")->orderBy("nama","asc")->get();
       return view('content.guru.laporan.lihat.index', compact('daftar_murid','title','laporan'));
  
+    }
+
+
+    public function lihat_cetak ($id_laporan,$id_murid){
+      $title="Laporan Murid"; 
+      $murid = Murid::findOrFail($id_murid); 
+      $laporan = Laporan::findOrFail($id_laporan);
+
+      $detil_laporan = DetilLaporan::where('laporan_id',$laporan->id)
+                                    ->where('murid_id',$murid->id)->get();
+
+      return view('content.guru.laporan.lihat.cetak', compact(
+        'title',
+        'murid',
+        'laporan',
+        'detil_laporan'
+      ));
+
     }
 
     public function penilaian($id)
@@ -175,7 +195,7 @@ class LaporanController extends Controller
 
       }
       
-      $judul_grafik = "Grafik Perkembangan ".$mata_pelajaran->nama;
+      $judul_grafik = "Grafik Perkembangan ".$mata_pelajaran->nama; 
  
       return view('content.guru.laporan.penilaian.rating', 
       compact('mata_pelajaran','title','laporan','daftar_murid','murid','data','judul_grafik','daftar_materi','detil_laporan'));

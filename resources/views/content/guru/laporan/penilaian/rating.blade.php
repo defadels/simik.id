@@ -16,8 +16,9 @@ $configData = Helper::appClasses();
 
   var options = {
           series: {!! json_encode($data) !!},
-          chart: {
+          chart: { 
           height: 350,
+          offsetX:"25px",
           type: 'line',
           zoom: {
             enabled: false
@@ -40,10 +41,19 @@ $configData = Helper::appClasses();
           },
         },
         yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
           min : 0,
           max : 6,
-          
-      tickAmount: 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
   },
 @if($mata_pelajaran->kode_grafik == 2 ||$mata_pelajaran->kode_grafik == 1)
   annotations: { 
@@ -94,6 +104,7 @@ $configData = Helper::appClasses();
 <script>
   var quill = new Quill('#editor', {
     theme: 'snow',
+    formats: ["bold", "italic","underline"],
     modules: {
       toolbar: [  
         ["bold", "italic","underline"],    

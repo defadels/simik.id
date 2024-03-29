@@ -126,10 +126,10 @@ name('gurunda.')->namespace('guru')->group(function () {
     Route::get('grafik', [GrafikController::class, 'index'])->name('grafik');   
     Route::get('laporan', [LaporanController::class, 'index'])->name('laporan');    
     Route::get('laporan/{id}/lihat', [LaporanController::class, 'lihat'])->name('laporan.lihat');    
+    Route::get('laporan/{id}/lihat/{id_murid}/cetak', [LaporanController::class, 'lihat_cetak'])->name('laporan.lihat.cetak');    
     Route::get('laporan/{id}/penilaian', [LaporanController::class, 'penilaian'])->name('laporan.penilaian');    
     Route::get('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'rating'])->name('laporan.penilaian.rating');    
-    Route::post('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'rating'])->name('laporan.penilaian.rating');    
-    Route::get('laporan/{id}/lihat/{id_murid}/cetak', [LaporanController::class, 'cetak'])->name('laporan.lihat.cetak');    
+    Route::post('laporan/{id}/penilaian/{id_penilaian}/rating', [LaporanController::class, 'rating'])->name('laporan.penilaian.rating');   
  
   });
 
