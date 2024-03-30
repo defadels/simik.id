@@ -36,6 +36,529 @@ p {
 </style>
 @endsection
 
+
+@section('page-script')
+<script > 
+  var options2 = {
+          series: {!! json_encode($data_quran) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart2 = new ApexCharts(
+            document.querySelector("#chart-apex-2"),
+            options2
+            );
+chart2.render(); 
+</script>
+
+<script > 
+  var options3 = {
+          series: {!! json_encode($data_arab) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },annotations: { 
+          xaxis: [
+        @foreach($daftar_materi_arab as $materi)
+            {
+            x: new Date("{{$materi->tanggal->format('Y-m-d')}}").getTime(),
+            strokeDashArray: 0,
+            borderColor: '#775DD0',
+            opacity: 100,
+            label: {
+              borderColor: '#775DD0',
+              position: 'left', 
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+                fontSize:'12px',
+                
+              },
+              text: "{{$materi->materi}}",
+            }
+          },
+        @endforeach
+          ],
+
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart3 = new ApexCharts(
+            document.querySelector("#chart-apex-3"),
+            options3
+            );
+chart3.render(); 
+</script>
+
+
+<script > 
+  var options4 = {
+          series: {!! json_encode($data_kepemimpinan) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },annotations: { 
+          xaxis: [
+        @foreach($daftar_materi_kepemimpinan as $materi)
+            {
+            x: new Date("{{$materi->tanggal->format('Y-m-d')}}").getTime(),
+            strokeDashArray: 0,
+            borderColor: '#775DD0',
+            opacity: 100,
+            label: {
+              borderColor: '#775DD0',
+              position: 'left', 
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+                fontSize:'12px',
+                
+              },
+              text: "{{$materi->materi}}",
+            }
+          },
+        @endforeach
+          ],
+
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart4 = new ApexCharts(
+            document.querySelector("#chart-apex-4"),
+            options4
+            );
+chart4.render(); 
+</script>
+
+
+<script > 
+  var options5 = {
+          series: {!! json_encode($data_rubut) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },annotations: { 
+          xaxis: [
+        @foreach($daftar_materi_rubut as $materi)
+            {
+            x: new Date("{{$materi->tanggal->format('Y-m-d')}}").getTime(),
+            strokeDashArray: 0,
+            borderColor: '#775DD0',
+            opacity: 100,
+            label: {
+              borderColor: '#775DD0',
+              position: 'left', 
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+                fontSize:'12px',
+                
+              },
+              text: "{{$materi->materi}}",
+            }
+          },
+        @endforeach
+          ],
+
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart5 = new ApexCharts(
+            document.querySelector("#chart-apex-5"),
+            options5
+            );
+chart5.render(); 
+</script>
+
+
+<script > 
+  var options6 = {
+          series: {!! json_encode($data_khat) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart6 = new ApexCharts(
+            document.querySelector("#chart-apex-6"),
+            options6
+            );
+chart6.render(); 
+</script>
+
+
+<script > 
+  var options7 = {
+          series: {!! json_encode($data_mtk) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },annotations: { 
+          xaxis: [
+        @foreach($daftar_materi_mtk as $materi)
+            {
+            x: new Date("{{$materi->tanggal->format('Y-m-d')}}").getTime(),
+            strokeDashArray: 0,
+            borderColor: '#775DD0',
+            opacity: 100,
+            label: {
+              borderColor: '#775DD0',
+              position: 'left', 
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+                fontSize:'12px',
+                
+              },
+              text: "{{$materi->materi}}",
+            }
+          },
+        @endforeach
+          ],
+
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart7 = new ApexCharts(
+            document.querySelector("#chart-apex-7"),
+            options7
+            );
+chart7.render(); 
+</script>
+
+
+<script > 
+  var options8 = {
+          series: {!! json_encode($data_bind) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },annotations: { 
+          xaxis: [
+        @foreach($daftar_materi_bind as $materi)
+            {
+            x: new Date("{{$materi->tanggal->format('Y-m-d')}}").getTime(),
+            strokeDashArray: 0,
+            borderColor: '#775DD0',
+            opacity: 100,
+            label: {
+              borderColor: '#775DD0',
+              position: 'left', 
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+                fontSize:'12px',
+                
+              },
+              text: "{{$materi->materi}}",
+            }
+          },
+        @endforeach
+          ],
+
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart8 = new ApexCharts(
+            document.querySelector("#chart-apex-8"),
+            options8
+            );
+chart8.render(); 
+</script>
+
+
+<script > 
+  var options9 = {
+          series: {!! json_encode($data_qishah) !!},
+          chart: { 
+          height: 250,
+          offsetX:"25px",
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        }, 
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        yaxis: { 
+          title: {
+          text: "Nilai",
+          offsetX:6
+          },
+          min : 0,
+          max : 6,
+          decimalsInFloat:0,
+          tickAmount: 6,
+          labels: {
+            show: true,
+            align: 'right', 
+            offsetX: -10,
+          }
+        },annotations: { 
+          xaxis: [
+        @foreach($daftar_materi_qishah as $materi)
+            {
+            x: new Date("{{$materi->tanggal->format('Y-m-d')}}").getTime(),
+            strokeDashArray: 0,
+            borderColor: '#775DD0',
+            opacity: 100,
+            label: {
+              borderColor: '#775DD0',
+              position: 'left', 
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+                fontSize:'12px',
+                
+              },
+              text: "{{$materi->materi}}",
+            }
+          },
+        @endforeach
+          ],
+
+        },xaxis :{ 
+          type: "datetime"
+        }};
+  var chart9 = new ApexCharts(
+            document.querySelector("#chart-apex-9"),
+            options9
+            );
+chart9.render(); 
+</script>
+@endsection
+
 @section('content')
 
 <h4 class="py-3 mb-4 d-print-none">
@@ -114,24 +637,33 @@ Periode
   <div id="isi" style="text-align: justify; text-justify: inter-word;">
   {!! $detil_laporan->where("jenis","opening")->value("deskripsi") !!}
   <h2>A. Pembiasaan Adab</h2>
+  <div id="chart-apex-1"></div>
   {!! $detil_laporan->where("jenis","adab")->value("deskripsi") !!}
   <h2>B. Al-Quran (Karimah)</h2>
+  <div id="chart-apex-2"></div>
   {!! $detil_laporan->where("matapelajaran_id", 7 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>C. Keterampilan Bahasa Arab</h2>
+  <div id="chart-apex-3"></div>
   {!! $detil_laporan->where("matapelajaran_id", 3 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>D. Keterampilan Kepemimpinan</h2>
+  <div id="chart-apex-4"></div>
   {!! $detil_laporan->where("matapelajaran_id", 4 )->where("jenis","mapel")->value("deskripsi") !!}
   {!! $detil_laporan->where("matapelajaran_id", 8 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>E. Rubutiyah wal Ulum</h2>
+  <div id="chart-apex-5"></div>
   {!! $detil_laporan->where("matapelajaran_id", 11 )->where("jenis","mapel")->value("deskripsi") !!}
   {!! $detil_laporan->where("matapelajaran_id", 2 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>F. Khath wa Rasm</h2>
+  <div id="chart-apex-6"></div>
   {!! $detil_laporan->where("matapelajaran_id", 6 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>G. Riyadhiyat</h2>
+  <div id="chart-apex-7"></div>
   {!! $detil_laporan->where("matapelajaran_id", 5 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>H. Bahasa Indonesia</h2>
+  <div id="chart-apex-8"></div>
   {!! $detil_laporan->where("matapelajaran_id", 1 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>I. Adab wal Qoshosh</h2>
+  <div id="chart-apex-9"></div>
   {!! $detil_laporan->where("matapelajaran_id", 10 )->where("jenis","mapel")->value("deskripsi") !!}
 </div>
  

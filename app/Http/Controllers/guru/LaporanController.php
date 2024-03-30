@@ -43,7 +43,9 @@ class LaporanController extends Controller
     }
 
 
-    public function lihat_cetak ($id_laporan,$id_murid){
+    public function lihat_cetak ($id_laporan,$id_murid) {
+
+      
       $title="Laporan Murid"; 
       $murid = Murid::findOrFail($id_murid); 
       $laporan = Laporan::findOrFail($id_laporan);
@@ -51,16 +53,465 @@ class LaporanController extends Controller
       $detil_laporan = DetilLaporan::where('laporan_id',$laporan->id)
                                     ->where('murid_id',$murid->id)->get();
 
-      return view('content.guru.laporan.lihat.cetak', compact(
+      // grafik adab
+      // data untuk grafik mata pelajaran
+      $daftar_mapel = MataPelajaran::get();
+
+     // mapel alquran. --------------------------------------------------------------------
+     $mapel_id = 7;
+     $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+
+     $data = collect();
+     $series1 = [];
+     $series2 = [];
+     $series3 = [];
+     $series4 = []; 
+
+     $label_1 = $mapel->label_1;
+     if(!$label_1){$label_1 = "Indikator 1";}
+     $label_2 = $mapel->label_2;
+     if(!$label_2){$label_2 = "Indikator 2";}
+     $label_3 = $mapel->label_3;
+     if(!$label_3){$label_3 = "Indikator 3";} 
+
+     $nilai = NilaiMurid:: where('murid_id',$murid->id)
+         ->where('matapelajaran_id',$mapel->id)
+         ->where('tanggal','>=',$laporan->tanggal_awal)
+         ->where('tanggal','<=',$laporan->tanggal_akhir) 
+         ->where('tanggal','!=',0)
+         ->where(function ( $query) {
+           $query->orWhere('indikator_1_nilai', '>', 0)
+                 ->orWhere('indikator_2_nilai', '>', 0)
+                 ->orWhere('indikator_3_nilai', '>', 0);
+         })->orderBy('tanggal','asc');
+
+     $indikator1 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_1_nilai as y')
+                          )->get();
+     $indikator2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_2_nilai as y')
+                          )->get();
+     $indikator3 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_3_nilai as y')
+                          )->get();
+     $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+                          )->get();
+
+       $series1 = array("name"=> $label_1, "data"=>$indikator1);
+       $series2 = array("name"=> $label_2, "data"=>$indikator2);
+       $series3 = array("name"=> $label_3, "data"=>$indikator3); 
+       $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+        
+       $data->push($series1);  
+       $data->push($series2);  
+       $data->push($series3); 
+       $data->push($series4);  
+     
+       $data_quran = $data;
+
+
+
+    // mapel bahasa arab ---------------------------------------------
+    $mapel_id = 3;
+    $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+
+    $daftar_materi_arab  = NilaiMurid:: where('murid_id',$murid->id)
+                                ->where('matapelajaran_id',$mapel->id)
+                                ->where('tanggal','>=',$laporan->tanggal_awal)
+                                ->where('tanggal','<=',$laporan->tanggal_akhir) 
+                                ->where('tanggal','!=',0)
+                                ->where(function ( $query) {
+                                  $query->orWhere('indikator_1_nilai', '>', 0)
+                                        ->orWhere('indikator_2_nilai', '>', 0)
+                                        ->orWhere('indikator_3_nilai', '>', 0);
+                                })->select('materi',DB::raw('min(tanggal) as tanggal'))
+                                ->groupBy('materi')
+                                ->orderBy('tanggal','asc')
+                                ->get();
+     
+    $data = collect();
+
+    $series4 = []; 
+    $nilai = NilaiMurid:: where('murid_id',$murid->id)
+    ->where('matapelajaran_id',$mapel->id)
+    ->where('tanggal','>=',$laporan->tanggal_awal)
+    ->where('tanggal','<=',$laporan->tanggal_akhir) 
+    ->where('tanggal','!=',0)
+    ->where(function ( $query) {
+      $query->orWhere('indikator_1_nilai', '>', 0)
+            ->orWhere('indikator_2_nilai', '>', 0)
+            ->orWhere('indikator_3_nilai', '>', 0);
+    })->orderBy('tanggal','asc');
+
+    $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+      )->get();
+
+        $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+        $data->push($series4); 
+        $data_arab = $data;
+     
+      // mapel kepemimpinan ---------------------------------------------
+      if($murid->kelas == 1){
+        $mapel_id = 4;
+        $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+      } else if ($murid->kelas == 2){
+        $mapel_id = 8;
+        $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+      }
+
+
+      $daftar_materi_kepemimpinan  = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->select('materi',DB::raw('min(tanggal) as tanggal'))
+      ->groupBy('materi')
+      ->orderBy('tanggal','asc')
+      ->get();
+
+
+      $data = collect();
+
+      $series4 = []; 
+      $nilai = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->orderBy('tanggal','asc');
+ 
+      $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+        )->get();
+
+          $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+          $data->push($series4); 
+          $data_kepemimpinan = $data;
+ 
+      // rubutiyah ulum --------------------------------------------------
+      if($murid->kelas == 1){
+        $mapel_id = 11;
+        $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+
+
+        $daftar_materi_rubut  = NilaiMurid:: where('murid_id',$murid->id)
+        ->where('matapelajaran_id',$mapel->id)
+        ->where('tanggal','>=',$laporan->tanggal_awal)
+        ->where('tanggal','<=',$laporan->tanggal_akhir) 
+        ->where('tanggal','!=',0)
+        ->where(function ( $query) {
+          $query->orWhere('indikator_1_nilai', '>', 0)
+                ->orWhere('indikator_2_nilai', '>', 0)
+                ->orWhere('indikator_3_nilai', '>', 0);
+        })->select('materi',DB::raw('min(tanggal) as tanggal'))
+        ->groupBy('materi')
+        ->orderBy('tanggal','asc')
+        ->get();
+
+      $data = collect();
+      $series1 = [];
+      $series2 = [];
+      $series3 = [];
+      $series4 = []; 
+
+      $label_1 = $mapel->label_1;
+      if(!$label_1){$label_1 = "Indikator 1";}
+      $label_2 = $mapel->label_2;
+      if(!$label_2){$label_2 = "Indikator 2";}
+      $label_3 = $mapel->label_3;
+      if(!$label_3){$label_3 = "Indikator 3";} 
+ 
+      $nilai = NilaiMurid:: where('murid_id',$murid->id)
+          ->where('matapelajaran_id',$mapel->id)
+          ->where('tanggal','>=',$laporan->tanggal_awal)
+          ->where('tanggal','<=',$laporan->tanggal_akhir) 
+          ->where('tanggal','!=',0)
+          ->where(function ( $query) {
+            $query->orWhere('indikator_1_nilai', '>', 0)
+                  ->orWhere('indikator_2_nilai', '>', 0)
+                  ->orWhere('indikator_3_nilai', '>', 0);
+          })->orderBy('tanggal','asc');
+
+      $indikator1 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_1_nilai as y')
+                           )->get();
+      $indikator2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_2_nilai as y')
+                           )->get();
+      $indikator3 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_3_nilai as y')
+                           )->get();
+      $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+                           )->get();
+
+        $series1 = array("name"=> $label_1, "data"=>$indikator1);
+        $series2 = array("name"=> $label_2, "data"=>$indikator2);
+        $series3 = array("name"=> $label_3, "data"=>$indikator3); 
+        $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+         
+        $data->push($series1);  
+        $data->push($series2);  
+        $data->push($series3); 
+        $data->push($series4);  
+      
+        $data_rubut = $data;
+      } else if ($murid->kelas == 2){
+        $mapel_id = 2;
+        $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+
+        $data = collect();
+
+        $series4 = []; 
+        $nilai = NilaiMurid:: where('murid_id',$murid->id)
+        ->where('matapelajaran_id',$mapel->id)
+        ->where('tanggal','>=',$laporan->tanggal_awal)
+        ->where('tanggal','<=',$laporan->tanggal_akhir) 
+        ->where('tanggal','!=',0)
+        ->where(function ( $query) {
+          $query->orWhere('indikator_1_nilai', '>', 0)
+                ->orWhere('indikator_2_nilai', '>', 0)
+                ->orWhere('indikator_3_nilai', '>', 0);
+        })->orderBy('tanggal','asc');
+   
+        $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+          )->get();
+  
+            $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+            $data->push($series4);  
+  
+        $data_rubut = $data;
+        
+      }
+
+      
+      // khat wa rasm ------------------------------------------------------
+      $mapel_id = 6;
+      $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+      $data = collect();
+
+      $series1 = []; 
+      $daftar_mat = NilaiMurid:: where('murid_id',$murid->id)
+        ->where('matapelajaran_id',$mapel->id)
+        ->where('tanggal','>=',$laporan->tanggal_awal)
+        ->where('tanggal','<=',$laporan->tanggal_akhir) 
+        ->where('tanggal','!=',0)
+        ->where(function ( $query) {
+          $query->orWhere('indikator_1_nilai', '>', 0)
+                ->orWhere('indikator_2_nilai', '>', 0)
+                ->orWhere('indikator_3_nilai', '>', 0);
+        })->select('materi')->distinct()->get(); 
+
+        foreach ($daftar_mat as $mat){
+            $rata2rata = NilaiMurid:: where('murid_id',$murid->id)
+            ->where('matapelajaran_id',$mapel->id)
+            ->where('tanggal','>=',$laporan->tanggal_awal)
+            ->where('tanggal','<=',$laporan->tanggal_akhir) 
+            ->where('tanggal','!=',0)
+            ->where('materi',$mat->materi)
+            ->where(function ( $query) {
+              $query->orWhere('indikator_1_nilai', '>', 0)
+                    ->orWhere('indikator_2_nilai', '>', 0)
+                    ->orWhere('indikator_3_nilai', '>', 0);
+            })->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')) 
+            ->orderBy('tanggal','asc')
+            ->get();
+            $series1 = array("name"=> $mat->materi, "data"=>$rata2rata);
+            $data->push($series1);
+           
+          }
+
+          $data_khat = $data;
+
+ 
+
+           // riyadhiyat -----------------------------------------------
+      $mapel_id = 5;
+      $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+ 
+      $daftar_materi_mtk  = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->select('materi',DB::raw('min(tanggal) as tanggal'))
+      ->groupBy('materi')
+      ->orderBy('tanggal','asc')
+      ->get();
+
+      $data = collect();
+
+      $series4 = []; 
+      $nilai = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->orderBy('tanggal','asc');
+ 
+      $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+        )->get();
+
+          $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+          $data->push($series4); 
+          $data_mtk = $data;
+
+      // bahasa indonesia -------------------------------------------------
+      $mapel_id = 1;
+      $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+
+      $daftar_materi_bind  = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->select('materi',DB::raw('min(tanggal) as tanggal'))
+      ->groupBy('materi')
+      ->orderBy('tanggal','asc')
+      ->get();
+      $data = collect();
+
+      $series4 = []; 
+      $nilai = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->orderBy('tanggal','asc');
+ 
+      $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+        )->get();
+
+          $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+          $data->push($series4); 
+          $data_bind = $data;
+
+  
+      // adab wal qashash ---------------------------------------------------
+      $mapel_id = 10;
+      $mapel = $daftar_mapel->where('id',$mapel_id)->first();
+
+      $daftar_materi_qishah  = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->select('materi',DB::raw('min(tanggal) as tanggal'))
+      ->groupBy('materi')
+      ->orderBy('tanggal','asc')
+      ->get();
+
+      $data = collect();
+      $series1 = [];
+      $series2 = [];
+      $series3 = [];
+      $series4 = []; 
+
+      $label_1 = $mapel->label_1;
+      if(!$label_1){$label_1 = "Indikator 1";}
+      $label_2 = $mapel->label_2;
+      if(!$label_2){$label_2 = "Indikator 2";}
+      $label_3 = $mapel->label_3;
+      if(!$label_3){$label_3 = "Indikator 3";} 
+ 
+      $nilai = NilaiMurid:: where('murid_id',$murid->id)
+          ->where('matapelajaran_id',$mapel->id)
+          ->where('tanggal','>=',$laporan->tanggal_awal)
+          ->where('tanggal','<=',$laporan->tanggal_akhir) 
+          ->where('tanggal','!=',0)
+          ->where(function ( $query) {
+            $query->orWhere('indikator_1_nilai', '>', 0)
+                  ->orWhere('indikator_2_nilai', '>', 0)
+                  ->orWhere('indikator_3_nilai', '>', 0);
+          })->orderBy('tanggal','asc');
+
+      $indikator1 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_1_nilai as y')
+                           )->get();
+      $indikator2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_2_nilai as y')
+                           )->get();
+      $indikator3 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , indikator_3_nilai as y')
+                           )->get();
+      $rata2 = $nilai->select(DB::raw('DATE_FORMAT(tanggal, "%Y-%m-%d") as x , rata_rata_nilai as y')
+                           )->get();
+
+        $series1 = array("name"=> $label_1, "data"=>$indikator1);
+        $series2 = array("name"=> $label_2, "data"=>$indikator2);
+        $series3 = array("name"=> $label_3, "data"=>$indikator3); 
+        $series4 = array("name"=>"Nilai Rata-rata", "data"=>$rata2); 
+         
+        $data->push($series1);  
+        $data->push($series2);  
+        $data->push($series3); 
+        $data->push($series4);  
+    
+      $data_qishah = $data;
+
+
+      // end data untuk grafik mata pelajaran.
+      return view('content.guru.laporan.lihat.cetak', 
+      compact(
         'title',
         'murid',
         'laporan',
-        'detil_laporan'
+        'detil_laporan',
+        'data_quran',
+        'data_qishah',
+        'daftar_materi_qishah',
+        'data_rubut',
+        'daftar_materi_rubut',
+        'data_arab',
+        'daftar_materi_arab',
+        'data_bind',
+        'daftar_materi_bind',
+        'data_kepemimpinan',
+        'daftar_materi_kepemimpinan',
+        'data_khat',
+        'data_mtk',
+        'daftar_materi_mtk' 
       ));
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
-    public function penilaian($id)
+    public function penilaian ($id)
     {
       $title="Daftar Penilaian";
 
