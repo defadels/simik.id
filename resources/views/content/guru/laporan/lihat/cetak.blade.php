@@ -714,32 +714,61 @@ Periode
   <h2>A. Pembiasaan Adab</h2>
   <div id="chart-apex-1"></div>
   {!! $detil_laporan->where("jenis","adab")->value("deskripsi") !!}
+  
+  <div style="page-break-inside: avoid;">
   <h2>B. Al-Quran (Karimah)</h2>
   <div id="chart-apex-2"></div>
   {!! $detil_laporan->where("matapelajaran_id", 7 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2  style="page-break-before: always;">C. Keterampilan Bahasa Arab</h2>
+  </div>
+
+  <div style="page-break-inside: avoid;">
+  <h2>C. Keterampilan Bahasa Arab</h2>
   <div id="chart-apex-3"></div>
   {!! $detil_laporan->where("matapelajaran_id", 3 )->where("jenis","mapel")->value("deskripsi") !!}
+  </div>
+
+<div style="page-break-inside: avoid;">
   <h2>D. Keterampilan Kepemimpinan</h2>
   <div id="chart-apex-4"></div>
   {!! $detil_laporan->where("matapelajaran_id", 4 )->where("jenis","mapel")->value("deskripsi") !!}
   {!! $detil_laporan->where("matapelajaran_id", 8 )->where("jenis","mapel")->value("deskripsi") !!}
+
+  </div>
+
+<div style="page-break-inside: avoid;">
   <h2>E. Rubutiyah wal Ulum</h2>
   <div id="chart-apex-5"></div>
   {!! $detil_laporan->where("matapelajaran_id", 11 )->where("jenis","mapel")->value("deskripsi") !!}
   {!! $detil_laporan->where("matapelajaran_id", 2 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2  style="page-break-before: always;">F. Khath wa Rasm</h2>
+
+  </div>
+
+  <div style="page-break-inside: avoid;">
+    <h2>F. Khath wa Rasm</h2>
   <div id="chart-apex-6"></div>
   {!! $detil_laporan->where("matapelajaran_id", 6 )->where("jenis","mapel")->value("deskripsi") !!}
+  </div>
+
+  <div style="page-break-inside: avoid;">
+  
   <h2>G. Riyadhiyat</h2>
   <div id="chart-apex-7"></div>
   {!! $detil_laporan->where("matapelajaran_id", 5 )->where("jenis","mapel")->value("deskripsi") !!}
+  </div>
+
+  <div style="page-break-inside: avoid;">
+  
   <h2>H. Bahasa Indonesia</h2>
   <div id="chart-apex-8"></div>
   {!! $detil_laporan->where("matapelajaran_id", 1 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2  style="page-break-before: always;">I. Adab wal Qoshosh</h2>
+  </div>
+
+  <div style="page-break-inside: avoid;">
+  
+  <h2>I. Adab wal Qoshosh</h2>
   <div id="chart-apex-9"></div>
   {!! $detil_laporan->where("matapelajaran_id", 10 )->where("jenis","mapel")->value("deskripsi") !!}
+          </div>
 </div>
  
 @endsection
