@@ -43,6 +43,7 @@ p {
 </h4> 
   <!-- Basic Bootstrap Table -->
  
+  <img class="mx-auto d-block mb-3" height="100px" src="/logo/kopsur.png"/>
   <h2 class="text-center">LAPORAN PERKEMBANGAN ANAK</h2>
   <h2 class="text-center">SEKOLAH ISLAM MAKTAB IBNU KHALDUN</h2>
 <br>
@@ -93,7 +94,7 @@ MUSYRIFAH
 MUSYRIF
 </div>
 <div class="col-4"> 
-: Alustadz AlMuttaqin Matondang
+: Alustadz Al-Muttaqin 
 </div>
 @endif
 
