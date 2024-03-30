@@ -279,22 +279,23 @@ class LaporanController extends Controller
             $data->push($series4);  
   
         $data_rubut = $data;
-
-        $daftar_materi_rubut  = NilaiMurid:: where('murid_id',$murid->id)
-        ->where('matapelajaran_id',$mapel->id)
-        ->where('tanggal','>=',$laporan->tanggal_awal)
-        ->where('tanggal','<=',$laporan->tanggal_akhir) 
-        ->where('tanggal','!=',0)
-        ->where(function ( $query) {
-          $query->orWhere('indikator_1_nilai', '>', 0)
-                ->orWhere('indikator_2_nilai', '>', 0)
-                ->orWhere('indikator_3_nilai', '>', 0);
-        })->select('materi',DB::raw('min(tanggal) as tanggal'))
-        ->groupBy('materi')
-        ->orderBy('tanggal','asc')
-        ->get();
         
       }
+
+      
+      $daftar_materi_rubut  = NilaiMurid:: where('murid_id',$murid->id)
+      ->where('matapelajaran_id',$mapel->id)
+      ->where('tanggal','>=',$laporan->tanggal_awal)
+      ->where('tanggal','<=',$laporan->tanggal_akhir) 
+      ->where('tanggal','!=',0)
+      ->where(function ( $query) {
+        $query->orWhere('indikator_1_nilai', '>', 0)
+              ->orWhere('indikator_2_nilai', '>', 0)
+              ->orWhere('indikator_3_nilai', '>', 0);
+      })->select('materi',DB::raw('min(tanggal) as tanggal'))
+      ->groupBy('materi')
+      ->orderBy('tanggal','asc')
+      ->get();
 
       
       // khat wa rasm ------------------------------------------------------
