@@ -720,7 +720,7 @@ Periode
   <h2>C. Keterampilan Bahasa Arab</h2>
   <div id="chart-apex-3"></div>
   {!! $detil_laporan->where("matapelajaran_id", 3 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2>D. Keterampilan Kepemimpinan</h2>
+  <h2 style="page-break-before: always;">D. Keterampilan Kepemimpinan</h2>
   <div id="chart-apex-4"></div>
   {!! $detil_laporan->where("matapelajaran_id", 4 )->where("jenis","mapel")->value("deskripsi") !!}
   {!! $detil_laporan->where("matapelajaran_id", 8 )->where("jenis","mapel")->value("deskripsi") !!}
@@ -734,7 +734,7 @@ Periode
   <h2>G. Riyadhiyat</h2>
   <div id="chart-apex-7"></div>
   {!! $detil_laporan->where("matapelajaran_id", 5 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2>H. Bahasa Indonesia</h2>
+  <h2 style="page-break-before: always;">H. Bahasa Indonesia</h2>
   <div id="chart-apex-8"></div>
   {!! $detil_laporan->where("matapelajaran_id", 1 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>I. Adab wal Qoshosh</h2>
