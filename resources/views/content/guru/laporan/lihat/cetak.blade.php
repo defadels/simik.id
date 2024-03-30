@@ -38,6 +38,81 @@ p {
 
 
 @section('page-script')
+
+<script> 
+         var options1 = {
+          series: [{
+          data: {!!$data_adab->pluck("y")!!}
+        }],
+          chart: {
+          type: 'bar',
+          height: 380
+        },
+        plotOptions: {
+          bar: {
+            barHeight: '100%',
+            distributed: true,
+            horizontal: true,
+            dataLabels: {
+              position: 'bottom'
+            },
+          }
+        },
+        colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+          '#f48024', '#69d2e7'
+        ],
+  legend: {
+    show: false
+  },
+        dataLabels: {
+          enabled: true,
+          textAnchor: 'start',
+          style: {
+            colors: ['#fff']
+          },
+          formatter: function (val, opt) {
+            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+          },
+          offsetX: 0,
+          dropShadow: {
+            enabled: false
+          }
+        },
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
+        xaxis: {
+          categories: {!!$data_adab->pluck("x")!!},
+          tickAmount: 6,
+        },
+        yaxis: {
+          labels: {
+            show: false
+          }
+        },  
+        tooltip: {
+          theme: 'dark',
+          x: {
+            show: false
+          },
+          y: {
+            
+            title: {
+              formatter: function () {
+                return ''
+              }
+            }
+          }
+        }
+        };
+
+        var chart1 = new ApexCharts(document.querySelector("#chart-apex-1"), options1);
+        chart1.render();
+      
+</script>
+
+
 <script > 
   var options2 = {
           series: {!! json_encode($data_quran) !!},
@@ -89,7 +164,7 @@ chart2.render();
   var options3 = {
           series: {!! json_encode($data_arab) !!},
           chart: { 
-          height: 250,
+          height: 300,
           offsetX:"25px",
           type: 'line',
           zoom: {
@@ -231,7 +306,7 @@ chart4.render();
   var options5 = {
           series: {!! json_encode($data_rubut) !!},
           chart: { 
-          height: 250,
+          height: 300,
           offsetX:"25px",
           type: 'line',
           zoom: {
@@ -350,7 +425,7 @@ chart6.render();
   var options7 = {
           series: {!! json_encode($data_mtk) !!},
           chart: { 
-          height: 250,
+          height: 300,
           offsetX:"25px",
           type: 'line',
           zoom: {
@@ -421,7 +496,7 @@ chart7.render();
   var options8 = {
           series: {!! json_encode($data_bind) !!},
           chart: { 
-          height: 250,
+          height: 300,
           offsetX:"25px",
           type: 'line',
           zoom: {

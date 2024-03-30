@@ -11,4 +11,6 @@ class RatingAdab extends Model
     protected $table = 'rating_adab';
 
     protected $guarded = [];
+
+    
 }

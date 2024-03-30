@@ -54,6 +54,12 @@ class LaporanController extends Controller
                                     ->where('murid_id',$murid->id)->get();
 
       // grafik adab
+      $data_adab = RatingAdab::join('penilaian_adab', 'penilaian_adab.id', '=', 'rating_adab.penilaian_adab_id')
+                              ->select('penilaian_adab.penilaian as x', 'rating_adab.rating as y')
+                              ->where('murid_id',$murid->id)
+                              ->get(); 
+ 
+
       // data untuk grafik mata pelajaran
       $daftar_mapel = MataPelajaran::get();
 
@@ -493,7 +499,8 @@ class LaporanController extends Controller
         'daftar_materi_kepemimpinan',
         'data_khat',
         'data_mtk',
-        'daftar_materi_mtk' 
+        'daftar_materi_mtk',
+        'data_adab'
       ));
 
  
