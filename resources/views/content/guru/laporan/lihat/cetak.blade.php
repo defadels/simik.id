@@ -16,7 +16,7 @@ $configData = Helper::appClasses();
 }
 
 h2 {  
-    font-size: 12pt !important;
+    font-size: 15pt !important;
     margin-block-end: 0 !important;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
@@ -25,7 +25,7 @@ h2 {
 }
 
 p {
-  font-size: 10pt;
+  font-size: 13pt;
   margin-block-start: 0 !important;
   margin-block-end: 0 !important;
   margin-top: 0 !important;
@@ -641,11 +641,11 @@ chart9.render();
 </h4> 
   <!-- Basic Bootstrap Table -->
  
-  <img class="mx-auto d-block mb-3" height="100px" src="/logo/kopsur.png"/>
+  <img class="mx-auto d-block mb-3" height="130px" src="/logo/kopsur.png"/>
   <h2 class="text-center">LAPORAN PERKEMBANGAN ANAK</h2>
   <h2 class="text-center">SEKOLAH ISLAM MAKTAB IBNU KHALDUN</h2>
 <br>
- <div class="row" style="font-size:11pt;">
+ <div class="row" style="font-size:13pt;">
 
     <div class="col-2">
     Nama Murid
@@ -717,10 +717,10 @@ Periode
   <h2>B. Al-Quran (Karimah)</h2>
   <div id="chart-apex-2"></div>
   {!! $detil_laporan->where("matapelajaran_id", 7 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2>C. Keterampilan Bahasa Arab</h2>
+  <h2  style="page-break-before: always;">C. Keterampilan Bahasa Arab</h2>
   <div id="chart-apex-3"></div>
   {!! $detil_laporan->where("matapelajaran_id", 3 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2 style="page-break-before: always;">D. Keterampilan Kepemimpinan</h2>
+  <h2>D. Keterampilan Kepemimpinan</h2>
   <div id="chart-apex-4"></div>
   {!! $detil_laporan->where("matapelajaran_id", 4 )->where("jenis","mapel")->value("deskripsi") !!}
   {!! $detil_laporan->where("matapelajaran_id", 8 )->where("jenis","mapel")->value("deskripsi") !!}
@@ -734,7 +734,7 @@ Periode
   <h2>G. Riyadhiyat</h2>
   <div id="chart-apex-7"></div>
   {!! $detil_laporan->where("matapelajaran_id", 5 )->where("jenis","mapel")->value("deskripsi") !!}
-  <h2 style="page-break-before: always;">H. Bahasa Indonesia</h2>
+  <h2>H. Bahasa Indonesia</h2>
   <div id="chart-apex-8"></div>
   {!! $detil_laporan->where("matapelajaran_id", 1 )->where("jenis","mapel")->value("deskripsi") !!}
   <h2>I. Adab wal Qoshosh</h2>
