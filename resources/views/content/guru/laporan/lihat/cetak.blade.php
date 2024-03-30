@@ -50,22 +50,15 @@ p {
  <div class="row" style="font-size:11pt;">
 
     <div class="col-2">
-    NAMA
+    Nama Murid
     </div>
-    <div class="col-4">
+    <div class="col-5">
     : {{$murid->nama}}
     </div>
-    <div class="col-3">
-    ORANG TUA/WALI
-    </div>
-    <div class="col-3">
-    : {{$murid->nama_wali}}
-    </div>
-
     <div class="col-2">
-    TINGKAT
+    Tingkat
     </div>
-    <div class="col-4">
+    <div class="col-3">
     @if($murid->kelas == 1)
     : Maktab Awwal
     @elseif ($murid->kelas ==2)
@@ -73,8 +66,16 @@ p {
     @endif
 
     </div>
-<div class="col-3">
-TAHUN AJARAN
+    <div class="col-2">
+    Orang Tua 
+    </div>
+    <div class="col-5">
+    : {{$murid->nama_wali}}
+    </div>
+
+    
+<div class="col-2">
+Tahun Ajaran
 </div>
 <div class="col-3">
 : 2023/2024
@@ -83,26 +84,26 @@ TAHUN AJARAN
 @if($murid->kelas == 1)
 
 <div class="col-2">
-MUSYRIFAH
+Musyrifah
 </div>
-<div class="col-4">
+<div class="col-5">
 : Alustadzah Mutiara
 </div>
 @elseif ($murid->kelas ==2)
 
 <div class="col-2">
-MUSYRIF
+Musyrif
 </div>
-<div class="col-4"> 
-: Alustadz Al-Muttaqin 
+<div class="col-5"> 
+: Alustadz Al-Muttaqin Matondang
 </div>
 @endif
 
 
 
 
-<div class="col-3">
-PERIODE
+<div class="col-2">
+Periode
 </div>
 <div class="col-3">
 : Januari - Maret 2024
