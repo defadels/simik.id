@@ -7,7 +7,20 @@ $configData = Helper::appClasses();
 @section('title', $title)
 
 @section('page-style')
-<style> !important
+<style>
+
+@media print {
+  .apexcharts-legend-marker:before {
+    content: "\25CF";
+    position: absolute;
+    top: -3px;
+    left: 0;
+    display: block;
+    line-height: 12px;
+    font-size: 24px;
+    
+  }
+}
 
 #isi {
   text-align: justify;
