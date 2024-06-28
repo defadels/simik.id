@@ -801,22 +801,22 @@ Periode
   
   <div style="page-break-inside: avoid;">
 
-  <h2>J. Kehadiran</h2>
+  <h2  style="margin-top: 26px;">J. Kehadiran</h2>
 
-<table style="width: 50%; border-collapse: collapse; margin-left: 0;">
+<table style="width: 50%; border-collapse: collapse; margin-left: 0;margin-top: 26px;">
   <tbody>
-    <tr><td style="border: 1px solid black; padding: 5px;"><p>Sakit</p></td><td style="border: 1px solid black; padding: 5px;"><p>: {{$data_absen->jumlah_hari_sakit}} hari</p></td></tr>
-    <tr><td style="border: 1px solid black; padding: 5px;"><p>Izin</p></td><td style="border: 1px solid black; padding: 5px;"><p>: {{$data_absen->jumlah_hari_izin}} hari</p></td></tr>
-    <tr><td style="border: 1px solid black; padding: 5px;"><p>Tanpa Keterangan</p></td><td style="border: 1px solid black; padding: 5px;"><p>: {{$data_absen->jumlah_hari_tidak_hadir}} hari</p></td></tr>
+    <tr><td style="border: 1px solid black; padding: 5px;"><p>Sakit</p></td><td style="border: 1px solid black; padding: 5px; text-align:right;"><p> {{$data_absen->jumlah_hari_sakit}} hari</p></td></tr>
+    <tr><td style="border: 1px solid black; padding: 5px;"><p>Izin</p></td><td style="border: 1px solid black; padding: 5px; text-align:right;"><p> {{$data_absen->jumlah_hari_izin}} hari</p></td></tr>
+    <tr><td style="border: 1px solid black; padding: 5px;"><p>Tanpa Keterangan</p></td><td style="border: 1px solid black; padding: 5px;text-align:right;"><p> {{$data_absen->jumlah_hari_tidak_hadir}} hari</p></td></tr>
   </tbody>
 </table>
 
 @if($laporan->id == 2)
 
-<h2 style="margin-top: 20px;">K. Keputusan</h2>
+<h2 style="margin-top: 26px;">K. Keputusan</h2>
 
-<p>Alhamdulillah, berdasarkan pencapaian seluruh kompetensi, Ananda {{$murid->nama}} dinyatakan</p>
-<p style="font-weight: bold; text-align: center; padding-top: 20px;"><strong>NAIK KE LEVEL 
+<p style="padding-top: 26px;">Alhamdulillah, berdasarkan pencapaian seluruh kompetensi, Ananda {{$murid->nama}} dinyatakan</p>
+<p style="font-weight: bold; text-align: center; padding-top: 20px;"><strong><u>NAIK KE LEVEL 
 
 @if($murid->kelas == 1)
     MAKTAB TSANI
@@ -824,7 +824,7 @@ Periode
     MAKTAB TSALITS
 @endif
 
-</strong>
+</u></strong>
 </p>
 
 
