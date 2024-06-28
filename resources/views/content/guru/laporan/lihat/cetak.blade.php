@@ -711,14 +711,28 @@ Musyrif
 </div>
 @endif
 
+@php
+use Carbon\Carbon;
 
+// Set locale ke bahasa Indonesia
+Carbon::setLocale('id'); 
+
+$output_periode = $laporan->tanggal_awal->isoFormat('MMMM');
+
+if ($laporan->tanggal_awal->year != $laporan->tanggal_akhir->year) {
+    $output_periode .= ' ' . $$laporan->tanggal_awal->year;
+}
+
+$output_periode .= ' - ' . $laporan->tanggal_akhir->isoFormat('MMMM YYYY');
+ 
+@endphp
 
 
 <div class="col-2">
 Periode
 </div>
 <div class="col-3">
-: {{$laporan->tanggal_awal->format("F")}} sd {{$laporan->tanggal_awal->format("F Y")}}
+: {{$output_periode}}
 </div>
 
  </div> 
