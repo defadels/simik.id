@@ -480,7 +480,20 @@ class LaporanController extends Controller
     
       $data_qishah = $data;
 
-
+      $data_absen =   NilaiMurid::select(
+                          'murid_id', 
+                          DB::raw("COUNT(DISTINCT CASE WHEN kehadiran = 'Tidak Hadir' THEN tanggal END) AS jumlah_hari_tidak_hadir"),
+                          DB::raw("COUNT(DISTINCT CASE WHEN kehadiran = 'Sakit' THEN tanggal END) AS jumlah_hari_sakit"),
+                          DB::raw("COUNT(DISTINCT CASE WHEN kehadiran = 'Izin' THEN tanggal END) AS jumlah_hari_izin"),
+                          DB::raw("COUNT(DISTINCT CASE WHEN kehadiran = '' THEN tanggal END) AS jumlah_hari_tanpa_keterangan"),
+                          DB::raw("COUNT(DISTINCT CASE WHEN kehadiran = 'Hadir' THEN tanggal END) AS jumlah_hari_hadir")
+                      ) 
+                      ->where('tanggal','>=',$laporan->tanggal_awal)
+                      ->where('tanggal','<=',$laporan->tanggal_akhir)  
+                      ->where('murid_id', $murid->id)
+                      ->groupBy('murid_id')
+                      ->first();
+ 
       // end data untuk grafik mata pelajaran.
       return view('content.guru.laporan.lihat.cetak', 
       compact(
@@ -502,7 +515,8 @@ class LaporanController extends Controller
         'data_khat',
         'data_mtk',
         'daftar_materi_mtk',
-        'data_adab'
+        'data_adab',
+        'data_absen'
       ));
 
  

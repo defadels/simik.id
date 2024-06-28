@@ -796,6 +796,92 @@ Periode
   <h2>I. Adab wal Qoshosh</h2>
   <div id="chart-apex-9"></div>
   {!! $detil_laporan->where("matapelajaran_id", 10 )->where("jenis","mapel")->value("deskripsi") !!}
+
+ 
+  <h2>J. Kehadiran</h2>
+
+<table style="width: 50%; border-collapse: collapse; margin-left: 0;">
+  <tbody>
+    <tr><td style="border: 1px solid black; padding: 5px;"><p>Sakit</p></td><td style="border: 1px solid black; padding: 5px;"><p>: {{$data_absen->jumlah_hari_sakit}} hari</p></td></tr>
+    <tr><td style="border: 1px solid black; padding: 5px;"><p>Izin</p></td><td style="border: 1px solid black; padding: 5px;"><p>: {{$data_absen->jumlah_hari_izin}} hari</p></td></tr>
+    <tr><td style="border: 1px solid black; padding: 5px;"><p>Tanpa Keterangan</p></td><td style="border: 1px solid black; padding: 5px;"><p>: {{$data_absen->jumlah_hari_tidak_hadir}} hari</p></td></tr>
+  </tbody>
+</table>
+
+@if($laporan->id == 2)
+
+<h2 style="margin-top: 20px;">K. Keputusan</h2>
+
+<p>Alhamdulillah, berdasarkan pencapaian seluruh kompetensi, Ananda {{$murid->nama}} dinyatakan</p>
+<p style="font-weight: bold; text-align: center;">NAIK KE LEVEL 
+
+@if($murid->kelas == 1)
+    MAKTAB TSANI
+    @elseif ($murid->kelas ==2)
+    MAKTAB TSALITS
+@endif
+
+
+</p>
+
+
+@endif
+<table style="width: 100%; margin-top: 30px;">
+  <tbody>
+    <tr>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Mengetahui</p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Medan, 29 Juni 2024</p></td>
+    </tr>
+    <tr>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Orangtua / Wali</p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>
+      
+      
+@if($murid->kelas == 1) 
+Musyrifah 
+@elseif ($murid->kelas ==2) 
+Musyrif 
+@endif
+      
+      
+      </p></td>
+    </tr>
+    <tr>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>{{$murid->nama_wali}}</strong></p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>
+@if($murid->kelas == 1)
+ Alustadzah Mutiara
+ 
+@elseif ($murid->kelas ==2)
+ 
+Alustadz Al-Muttaqin Matondang, Lc., S.Pd.I
+ 
+@endif
+
+
+
+
+
+      </strong></p></td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="width: 100%; margin-top: 50px;">
+  <tbody>
+    <tr>
+      <td colspan="2" style="text-align: center;"><p>Mengetahui</p></td>
+    </tr>
+    <tr>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Direktur Sekolah Islam Maktab Ibnu Khaldun</p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Mudir Tanfidzi</p></td>
+    </tr>
+    <tr>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>Alustadz Adi Suhara Addimashqie, Lc.MA</strong></p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>Alustadz Ilham Wiratno</strong></p></td>
+    </tr>
+  </tbody>
+</table>
           </div>
 </div>
  
