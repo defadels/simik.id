@@ -655,7 +655,7 @@ chart9.render();
 </h4> 
   <!-- Basic Bootstrap Table -->
  
-  <img class="mx-auto d-block mb-3" height="130px" src="/logo/kopsur.png"/>
+  <img class="mx-auto d-block mb-3" height="130px" src="/logo/kopsur_new.png"/>
   <h2 class="text-center">LAPORAN PERKEMBANGAN ANAK</h2>
   <h2 class="text-center">SEKOLAH ISLAM MAKTAB IBNU KHALDUN</h2>
 <br>
@@ -718,7 +718,7 @@ Musyrif
 Periode
 </div>
 <div class="col-3">
-: Januari - Maret 2024
+: {{$laporan->tanggal_awal->format("F")}} sd {{$laporan->tanggal_awal->format("F Y")}}
 </div>
 
  </div> 
