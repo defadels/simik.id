@@ -716,7 +716,7 @@ use Carbon\Carbon;
 
 // Set locale ke bahasa Indonesia
 Carbon::setLocale('id'); 
-
+$now = Carbon::now();
 $output_periode = $laporan->tanggal_awal->isoFormat('MMMM');
 
 if ($laporan->tanggal_awal->year != $laporan->tanggal_akhir->year) {
@@ -813,7 +813,7 @@ Periode
 <h2 style="margin-top: 20px;">K. Keputusan</h2>
 
 <p>Alhamdulillah, berdasarkan pencapaian seluruh kompetensi, Ananda {{$murid->nama}} dinyatakan</p>
-<p style="font-weight: bold; text-align: center;">NAIK KE LEVEL 
+<p style="font-weight: bold; text-align: center; padding-top: 20px;"><strong>NAIK KE LEVEL 
 
 @if($murid->kelas == 1)
     MAKTAB TSANI
@@ -821,7 +821,7 @@ Periode
     MAKTAB TSALITS
 @endif
 
-
+</strong>
 </p>
 
 
@@ -829,11 +829,12 @@ Periode
 <table style="width: 100%; margin-top: 30px;">
   <tbody>
     <tr>
+    <td style="width: 50%; text-align: center; vertical-align: top;"><p>Medan, {{$now->isoFormat('DD MMMM YYYY')}}</p></td>
       <td style="width: 50%; text-align: center; vertical-align: top;"><p>Mengetahui</p></td>
-      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Medan, 29 Juni 2024</p></td>
+      
     </tr>
     <tr>
-      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Orangtua / Wali</p></td>
+      
       <td style="width: 50%; text-align: center; vertical-align: top;"><p>
       
       
@@ -845,10 +846,11 @@ Musyrif
       
       
       </p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Orangtua / Wali</p></td>
     </tr>
     <tr>
-      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>{{$murid->nama_wali}}</strong></p></td>
-      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>
+      
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>
 @if($murid->kelas == 1)
  Alustadzah Mutiara
  
@@ -863,6 +865,7 @@ Alustadz Al-Muttaqin Matondang, Lc., S.Pd.I
 
 
       </strong></p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>{{$murid->nama_wali}}</strong></p></td>
     </tr>
   </tbody>
 </table>
@@ -873,12 +876,12 @@ Alustadz Al-Muttaqin Matondang, Lc., S.Pd.I
       <td colspan="2" style="text-align: center;"><p>Mengetahui</p></td>
     </tr>
     <tr>
-      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Direktur Sekolah Islam Maktab Ibnu Khaldun</p></td>
       <td style="width: 50%; text-align: center; vertical-align: top;"><p>Mudir Tanfidzi</p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top;"><p>Direktur Sekolah Islam Maktab Ibnu Khaldun</p></td>
     </tr>
     <tr>
-      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>Alustadz Adi Suhara Addimashqie, Lc.MA</strong></p></td>
-      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 60px;"><p><strong>Alustadz Ilham Wiratno</strong></p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>Alustadz Ilham Wiratno</strong></p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>Alustadz Adi Suhara Addimashqie, Lc., M.A.</strong></p></td>
     </tr>
   </tbody>
 </table>
