@@ -57,6 +57,7 @@ class LaporanController extends Controller
       $data_adab = RatingAdab::join('penilaian_adab', 'penilaian_adab.id', '=', 'rating_adab.penilaian_adab_id')
                               ->select('penilaian_adab.penilaian as x', 'rating_adab.rating as y')
                               ->where('murid_id',$murid->id)
+                              ->where('penilaian_adab.laporan_id',$laporan->id)
                               ->get(); 
  
 
