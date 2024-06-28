@@ -797,7 +797,10 @@ Periode
   <div id="chart-apex-9"></div>
   {!! $detil_laporan->where("matapelajaran_id", 10 )->where("jenis","mapel")->value("deskripsi") !!}
 
- 
+</div>
+  
+  <div style="page-break-inside: avoid;">
+
   <h2>J. Kehadiran</h2>
 
 <table style="width: 50%; border-collapse: collapse; margin-left: 0;">
@@ -826,10 +829,10 @@ Periode
 
 
 @endif
-<table style="width: 100%; margin-top: 30px;">
+<table style="width: 100%; margin-top: 60px; ">
   <tbody>
     <tr>
-    <td style="width: 50%; text-align: center; vertical-align: top;"><p>Medan, {{$now->isoFormat('DD MMMM YYYY')}}</p></td>
+    <td style="width: 50%; text-align: center; vertical-align: top;"><p>Medan, {{--$now->isoFormat('DD MMMM YYYY')--}} 29 Juni 2024</p></td>
       <td style="width: 50%; text-align: center; vertical-align: top;"><p>Mengetahui</p></td>
       
     </tr>
@@ -873,14 +876,15 @@ Alustadz Al-Muttaqin Matondang, Lc., S.Pd.I
 <table style="width: 100%; margin-top: 50px;">
   <tbody>
     <tr>
-      <td colspan="2" style="text-align: center;"><p>Mengetahui</p></td>
+      <td style="text-align: center;"><p>Mengetahui</p></td> 
+      <td style="text-align: center;"><p></p></td>
     </tr>
     <tr>
       <td style="width: 50%; text-align: center; vertical-align: top;"><p>Mudir Tanfidzi</p></td>
       <td style="width: 50%; text-align: center; vertical-align: top;"><p>Direktur Sekolah Islam Maktab Ibnu Khaldun</p></td>
     </tr>
     <tr>
-      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>Alustadz Ilham Wiratno</strong></p></td>
+      <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>Alustadz Ilham Wiratno, A.Ma., CLQ</strong></p></td>
       <td style="width: 50%; text-align: center; vertical-align: top; padding-top: 114px;"><p><strong>Alustadz Adi Suhara Addimashqie, Lc., M.A.</strong></p></td>
     </tr>
   </tbody>
